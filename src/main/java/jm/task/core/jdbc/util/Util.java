@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class Util {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/Kata";
-    private static final String DB_USERNAME = "root";
+    private static final String DB_USERNAME = "People";
     private static final String DB_PASSWORD = "12041961";
     private static SessionFactory sessionFactory; // параметры программы ХАЙБЕРНЕТ
 
