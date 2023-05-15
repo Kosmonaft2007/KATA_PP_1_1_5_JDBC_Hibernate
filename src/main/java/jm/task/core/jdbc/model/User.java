@@ -1,21 +1,26 @@
 package jm.task.core.jdbc.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Table
+@Entity
+@Table (name = "People")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-
-    @Column
+/*
+@Column
+Specifies the mapped column for a persistent property or field. If no Column annotation is specified, the default values apply.
+Указывает сопоставленный столбец для постоянного свойства или поля. Если аннотация к столбцу не указана, применяются значения по умолчанию.
+ */
+    @Column(name = "name")
     private String name;
 
-    @Column
+    @Column(name = "lastName")
     private String lastName;
 
-    @Column
+    @Column(name = "age")
     private Byte age;
 
     public User() {

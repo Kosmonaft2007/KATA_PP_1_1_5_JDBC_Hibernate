@@ -4,7 +4,11 @@ import jm.task.core.jdbc.model.User;
 
 import java.util.List;
 
+// @Repository - почему отказывается работать????
+
 public class UserDaoHibernateImpl implements UserDao {
+
+
     public UserDaoHibernateImpl() {
 
     }
