@@ -6,18 +6,19 @@ import jm.task.core.jdbc.model.User;
 
 import java.sql.SQLException;
 import java.util.List;
+
 // throws Exception
-public class UserServiceImpl  implements UserService  {
-//    public final UserDaoJDBCImpl userDao = new UserDaoJDBCImpl();
+public class UserServiceImpl implements UserService {
+    //    public final UserDaoJDBCImpl userDao = new UserDaoJDBCImpl();
     public final UserDao userDao = new UserDaoJDBCImpl();
 
 
     public void createUsersTable() {
-//        userDao.createUsersTable();
+        userDao.createUsersTable();
     }
 
     public void dropUsersTable() {
-//userDao.dropUsersTable();
+        userDao.dropUsersTable();
 //        try {
 //            userDao.dropUsersTable();
 //        } catch (SQLException e) {
@@ -26,20 +27,19 @@ public class UserServiceImpl  implements UserService  {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-//        User user = new User(name, lastName, age);
-//        userDao.saveUser(name, lastName, age);
+        userDao.saveUser(name, lastName, age);
     }
 
     public void removeUserById(long id) {
-//        userDao.removeUserById(id);
+        userDao.removeUserById(id);
     }
 
     public List<User> getAllUsers() {
-//        return userDaoJDBC.getAllUsers();
-        return null;
+        return userDao.getAllUsers();
+//        return null;
     }
 
     public void cleanUsersTable() {
-//        userDaoJDBC.cleanUsersTable();
+        userDao.cleanUsersTable();
     }
 }

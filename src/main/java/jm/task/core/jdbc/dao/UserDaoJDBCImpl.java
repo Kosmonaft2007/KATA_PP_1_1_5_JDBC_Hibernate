@@ -12,9 +12,7 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
-
     }
-
     @Override
     public void createUsersTable() { // создаем таблицу пользователя
         try (Statement statement = Util.getConnection().createStatement()) {// СОЗДАЙТЕ ТАБЛИЦУ, ЕСЛИ НЕ СУЩЕСТВУЕТ пользователей
@@ -38,6 +36,12 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    /**
+     *
+     * @param name
+     * @param lastName
+     * @param age
+     */
     @Override
     public void saveUser(String name, String lastName, byte age) { //добавление данных
         try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("INSERT INTO Users (id, name, lastName, age) " + //добавление данных в таблицу
@@ -49,6 +53,10 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    /**
+     *
+     * @param id
+     */
     @Override
     public void removeUserById(long id) { // удалить пользователя по идентификатору
         try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("DELETE FROM Users WHERE id = '" + id + "'")) {
@@ -58,6 +66,10 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<User> getAllUsers() { // Получить всех пользователей
         List<User> userList = new ArrayList<>();
@@ -76,6 +88,7 @@ public class UserDaoJDBCImpl implements UserDao {
         }
         return userList;
     }
+
 
     @Override
     public void cleanUsersTable() { // Чистый пользователь, стабильный
