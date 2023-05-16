@@ -15,13 +15,13 @@ public class UserDaoJDBCImpl implements UserDao {
     }
     @Override
     public void createUsersTable() { // создаем таблицу пользователя
-        try (Statement statement = Util.getConnection().createStatement()) {// СОЗДАЙТЕ ТАБЛИЦУ, ЕСЛИ НЕ СУЩЕСТВУЕТ пользователей
-            statement.execute("CREATE TABLE IF NOT EXISTS People" + "( " +
-                    "id BIGINT AUTO_INCREMENT PRIMARY KEY," +
-                    "name VARCHAR(32)," +
-                    "lastName VARCHAR(32)," +
-                    "age TINYINT DEFAULT 0)" +
-                    "");
+        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS People" + "( " +
+                "id BIGINT AUTO_INCREMENT PRIMARY KEY," +
+                "name VARCHAR(32)," +
+                "lastName VARCHAR(32)," +
+                "age TINYINT DEFAULT 0)" +
+                "");) {// СОЗДАЙТЕ ТАБЛИЦУ, ЕСЛИ НЕ СУЩЕСТВУЕТ пользователей
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -29,8 +29,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public void dropUsersTable() { // удаляем таблицу пользователя
-        try (Statement statement = Util.getConnection().createStatement()) {
-            statement.execute("DROP TABLE IF EXISTS People"); // Удаляем ТАБЛИЦУ, ЕСЛИ СУЩЕСТВУЕТ пользователь
+        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("DROP TABLE IF EXISTS People")) {
+            preparedStatement.executeUpdate(); // Удаляем ТАБЛИЦУ, ЕСЛИ СУЩЕСТВУЕТ пользователь
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -41,16 +41,12 @@ public class UserDaoJDBCImpl implements UserDao {
         try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("INSERT INTO People (id, name, lastName, age) " + //добавление данных в таблицу
                 "values (id, '" + name + "', '" + lastName + "', '" + age + "')")) {
             preparedStatement.executeUpdate();
-            System.out.println("User c имненем '" + name + "' добавлен в базу данных");
+//            System.out.println("User c имненем '" + name + "' добавлен в базу данных");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     *
-     * @param id
-     */
     @Override
     public void removeUserById(long id) { // удалить пользователя по идентификатору
         try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("DELETE FROM People WHERE id = '" + id + "'")) {
@@ -60,10 +56,6 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    /**
-     *
-     * @return
-     */
     @Override
     public List<User> getAllUsers() { // Получить всех пользователей
         List<User> userList = new ArrayList<>();
