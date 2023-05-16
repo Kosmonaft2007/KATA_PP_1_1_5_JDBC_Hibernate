@@ -13,6 +13,9 @@ public class Util {
     private static final String DB_PASSWORD = "12041961";
     private static SessionFactory sessionFactory; // параметры программы ХАЙБЕРНЕТ
 
+
+    // 4 замечание
+
     public static Connection getConnection() throws SQLException { //метод для класики
         Connection connection = null;
         try {
