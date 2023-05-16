@@ -85,3 +85,33 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public void saveUser(String name, String lastName, byte age) throws SQLException {
+//        String dropTable = "INSERT INTO users (name, lastName, age) VALUES (?, ?, ?);";
+//
+//        try (PreparedStatement statement = connection.prepareStatement(dropTable)) {
+//            // Определяем значения переменных
+//            statement.setString(1, name);
+//            statement.setString(2, lastName);
+//            statement.setInt(3, age);
+//            statement.executeUpdate();
+//            connection.commit();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            connection.rollback();
+//        }
+//    }
