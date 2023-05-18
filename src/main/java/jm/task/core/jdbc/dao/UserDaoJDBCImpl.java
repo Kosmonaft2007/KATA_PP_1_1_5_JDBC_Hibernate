@@ -3,19 +3,26 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
+    private final static Connection con;
+
+    static {
+        try {
+            con = Util.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public UserDaoJDBCImpl() {
     }
-    @Override
+    @Override   
     public void createUsersTable() { // создаем таблицу пользователя
-        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS People" + "( " +
+        try (PreparedStatement preparedStatement = con.prepareStatement("CREATE TABLE IF NOT EXISTS People" + "( " +
                 "id BIGINT AUTO_INCREMENT PRIMARY KEY," +
                 "name VARCHAR(32)," +
                 "lastName VARCHAR(32)," +
@@ -29,7 +36,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public void dropUsersTable() { // удаляем таблицу пользователя
-        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("DROP TABLE IF EXISTS People")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement("DROP TABLE IF EXISTS People")) {
             preparedStatement.executeUpdate(); // Удаляем ТАБЛИЦУ, ЕСЛИ СУЩЕСТВУЕТ пользователь
         } catch (SQLException e) {
             e.printStackTrace();
@@ -38,10 +45,10 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public void saveUser(String name, String lastName, byte age) { //добавление данных
-        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("INSERT INTO People (id, name, lastName, age) " + //добавление данных в таблицу
+        try (PreparedStatement preparedStatement = con.prepareStatement("INSERT INTO People (id, name, lastName, age) " + //добавление данных в таблицу
                 "values (id, '" + name + "', '" + lastName + "', '" + age + "')")) {
             preparedStatement.executeUpdate();
-//            System.out.println("User c имненем '" + name + "' добавлен в базу данных");
+            System.out.println("User c имненем '" + name + "' добавлен в базу данных");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,7 +56,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public void removeUserById(long id) { // удалить пользователя по идентификатору
-        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("DELETE FROM People WHERE id = '" + id + "'")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement("DELETE FROM People WHERE id = '" + id + "'")) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,7 +66,7 @@ public class UserDaoJDBCImpl implements UserDao {
     @Override
     public List<User> getAllUsers() { // Получить всех пользователей
         List<User> userList = new ArrayList<>();
-        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("SELECT * FROM People")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement("SELECT * FROM People")) {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 User user = new User(
@@ -78,7 +85,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     @Override
     public void cleanUsersTable() { // Чистый пользователь, стабильный
-        try (PreparedStatement preparedStatement = Util.getConnection().prepareStatement("TRUNCATE TABLE People;")) {
+        try (PreparedStatement preparedStatement = con.prepareStatement("TRUNCATE TABLE People;")) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

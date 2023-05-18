@@ -22,8 +22,8 @@ public class Main {
 
         List<User> users = userService.getAllUsers(); // class User
         for (User user : users) {
-//            System.out.println(user);
-            System.out.println("User c имненем '" + userService.getAllUsers().get(0).getName() + "' добавлен в базу данных");
+            System.out.println(user);
+//            System.out.println("User c имненем '" + userService.getAllUsers().get(0).getName() + "' добавлен в базу данных");
         }
 
     }

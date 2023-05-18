@@ -14,8 +14,6 @@ public class Util {
     private static SessionFactory sessionFactory; // параметры программы ХАЙБЕРНЕТ
 
 
-    // 4 замечание
-
     public static Connection getConnection() throws SQLException { //метод для класики
         Connection connection = null;
         try {
