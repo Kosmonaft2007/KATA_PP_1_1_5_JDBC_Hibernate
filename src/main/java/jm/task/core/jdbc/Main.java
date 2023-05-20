@@ -19,13 +19,11 @@ public class Main {
         userService.saveUser("VV", "SS", (byte) 2);
 //        System.out.println("User c имненем '" + userService.getAllUsers().get(3).getName() + "' добавлен в базу данных");
 
-
-        List<User> users = userService.getAllUsers(); // class User
-        for (User user : users) {
-            System.out.println(user);
-//            System.out.println("User c имненем '" + userService.getAllUsers().get(0).getName() + "' добавлен в базу данных");
-        }
-
+        System.out.println("User c имненем '" + userService.getAllUsers().toString() + "' добавлен в базу данных");
+//        List<User> users = userService.getAllUsers(); // class User
+//        for (User user : users) {
+//            System.out.println(user);
+//        }
     }
 }
 
