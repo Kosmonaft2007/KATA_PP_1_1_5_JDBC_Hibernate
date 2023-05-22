@@ -5,10 +5,19 @@ import jm.task.core.jdbc.service.UserService;
 import jm.task.core.jdbc.service.UserServiceImpl;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         UserService userService = new UserServiceImpl();
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            System.out.println("Driver loaded success");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
         userService.createUsersTable();
         userService.saveUser("Ivan", "Nekrasov", (byte) 111);
 //        System.out.println("User c имненем '" + userService.getAllUsers().get(0).getName() + "' добавлен в базу данных");
