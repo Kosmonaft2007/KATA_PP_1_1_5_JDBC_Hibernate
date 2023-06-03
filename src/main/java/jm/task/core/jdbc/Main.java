@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 public class Main {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         UserService userService = new UserServiceImpl();
 
         try {
@@ -17,8 +17,10 @@ public class Main {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-
+        // Создание таблицы User(ов)
         userService.createUsersTable();
+
+        // Добавление 4 User(ов) в таблицу с данными на свой выбор.
         userService.saveUser("Ivan", "Nekrasov", (byte) 111);
 //        System.out.println("User c имненем '" + userService.getAllUsers().get(0).getName() + "' добавлен в базу данных");
         userService.saveUser("Anna", "Petrova", (byte) 11);
@@ -28,11 +30,15 @@ public class Main {
         userService.saveUser("VV", "SS", (byte) 2);
 //        System.out.println("User c имненем '" + userService.getAllUsers().get(3).getName() + "' добавлен в базу данных");
 
-        System.out.println("User c имненем '" + userService.getAllUsers().toString() + "' добавлен в базу данных");
-//        List<User> users = userService.getAllUsers(); // class User
-//        for (User user : users) {
-//            System.out.println(user);
-//        }
+
+        //Получение всех User из базы и вывод в консоль
+        userService.getAllUsers();
+
+        //Очистка таблицы User(ов)
+        userService.cleanUsersTable();
+
+        //Удаление таблицы
+        userService.dropUsersTable();
     }
 }
 
