@@ -8,6 +8,8 @@ import org.hibernate.cfg.Environment;
 import org.hibernate.cfg.Configuration;
 //import java.lang.module.Configuration;
 import org.hibernate.service.ServiceRegistry;
+
+import java.sql.Connection;
 //import javax.imageio.spi.ServiceRegistry;
 
 
@@ -17,7 +19,7 @@ public class Util {
     private static final String DB_USERNAME = "root";
     private static final String DB_PASSWORD = "12041961";
     private static SessionFactory sessionFactory = null;
-
+    public static Connection getConnection = null;
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
@@ -42,4 +44,6 @@ public class Util {
         }
         return sessionFactory;
     }
+
+
 }
