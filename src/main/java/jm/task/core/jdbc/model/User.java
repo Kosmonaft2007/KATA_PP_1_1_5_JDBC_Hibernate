@@ -18,7 +18,7 @@ Specifies the mapped column for a persistent property or field. If no Column ann
     @Column(name = "name")
     private String name;
 
-    @Column(name = "last_Name")
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "age")

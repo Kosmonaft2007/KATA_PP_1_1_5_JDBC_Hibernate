@@ -27,16 +27,16 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void createUsersTable() {
 //        Transaction transaction;
-        String sqlQuery = "CREATE TABLE IF NOT EXISTS People" +
+        String sqlQuery = "CREATE TABLE IF NOT EXISTS people" +
                 "(id BIGINT NOT NULL AUTO_INCREMENT," +
                 "name VARCHAR(45) NOT NULL," +
-                "lastname VARCHAR(45) NOT NULL," +
+                "last_name VARCHAR(45) NOT NULL," +
                 "age INT NOT NULL," +
                 "PRIMARY KEY (id))";
 
         try (Session session = sessionFactory.openSession();) {
-            session.createNativeQuery(sqlQuery).executeUpdate();
             transaction = session.beginTransaction();
+            session.createNativeQuery(sqlQuery).executeUpdate();
             transaction.commit();
             System.out.println("Таблица создана");
         } catch (HibernateException e) {
@@ -49,11 +49,11 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void dropUsersTable() {
-        String sqlQuery = "DROP TABLE IF EXISTS People";
+        String sqlQuery = "DROP TABLE IF EXISTS people";
 
         try (Session session = sessionFactory.openSession();) {
-            session.createNativeQuery(sqlQuery).executeUpdate();
             transaction = session.beginTransaction();
+            session.createNativeQuery(sqlQuery).executeUpdate();
             transaction.commit();
             System.out.println("Таблица удалена");
         } catch (HibernateException e) {
